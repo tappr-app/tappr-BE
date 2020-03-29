@@ -66,7 +66,7 @@ function generateToken(user) {
   };
 
   return jwt.sign(payload, jwtSecret, options);
-}
+};
 
 // ---------------------- Custom Middleware ---------------------- //
 
@@ -75,7 +75,7 @@ function validateUser(req, res, next) {
     res.status(400).json({ message: "Username and password fields are required" });
   } else {
     next();
-  }
-}
+  };
+};
 
 module.exports = router;

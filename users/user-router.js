@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../config/secrets.js");
 
 const Users = require("./user-model.js");
 
@@ -27,6 +29,7 @@ router.get("/:id", verifyUserId, (req, res) => {
   });
 });
 
+// FIX THIS!
 router.post('/:id/beers', verifyUserId, (req, res) => {
   const id = req.params.id;
 
@@ -47,12 +50,29 @@ router.put("/:id", verifyUserId, (req, res) => {
 
   Users.update(req.body, id)
     .then(user => {
-      res.status(200).json(user);
+      const token = generateToken(user);
+
+      res.status(200).json({ user: user, token });
     })
     .catch(error => {
       res.status(500).json({ message: 'The user information could not be updated', error: error });
     });
 });
+
+// ---------------------- Generate Token ---------------------- //
+
+function generateToken(user) {
+  const payload = {
+    subject: user.id,
+    username: user.username
+  };
+
+  const options = {
+    expiresIn: "7d",
+  };
+
+  return jwt.sign(payload, jwtSecret, options);
+};
 
 // ---------------------- Custom Middleware ---------------------- //
 
@@ -71,6 +91,6 @@ function verifyUserId(req, res, next) {
     .catch(error => {
       res.status(500).json({ message: 'The user information could not be retrieved', error: error });
     });
-}
+};
 
 module.exports = router;
