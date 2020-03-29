@@ -29,15 +29,14 @@ router.get("/:id", verifyUserId, (req, res) => {
   });
 });
 
-// FIX THIS!
-router.post('/:id/beers', verifyUserId, (req, res) => {
-  const id = req.params.id;
+router.post('/beers', (req, res) => {
+  const id = req.decodedToken.subject;
 
   Promise.all([
     Users.addBeers(req.body, id),
-    Users.findUserBeers(id)
+    Users.findById(id)
   ])
-  .then(([user, beers]) => {
+  .then(([beers, user]) => {
     res.status(200).json({ user: user, beers });
   })
   .catch(error => {

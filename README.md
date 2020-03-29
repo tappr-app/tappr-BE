@@ -329,7 +329,7 @@ URL: /api/users/:id
 ### Add a beer to the user list
 HTTP Request: POST
 
-URL: /api/users/:id/beers
+URL: /api/users/beers
 
 ##### Body
 | Name        | Type    | Required  | Description                                                             |
@@ -355,6 +355,37 @@ URL: /api/users/:id/beers
 #### Response
 ##### 200 (OK)
 > Will receive a 200 response with a user object including their saved beers in an array if the request is successful
+```javascript
+{
+    "user": {
+        "id": 1,
+        "username": "Brewski",
+        "bio": "Hydrating myself one beer at a time"
+    },
+    "beers": [
+        {
+            "name": "Red Oak Bavarian Amber Lager",
+            "tagline": "Smooth and pure",
+            "abv": 5
+        },
+        {
+            "name": "Sam Adams Boston Lager",
+            "tagline": "Full flavored lager",
+            "abv": 5
+        },
+        {
+            "name": "White Claw Mango",
+            "tagline": "Stay hydrated with a delicious, spiked, mango seltzer",
+            "abv": 5
+        },
+        {
+            "name": "Dos Equis",
+            "tagline": "I don't always drink beer, but when I do, it's a XX",
+            "abv": 5.5
+        }
+    ]
+}
+```
 
 ##### 400 (Bad Request)
 > Will receive a 400 response if required information is missing from the body

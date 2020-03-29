@@ -50,7 +50,7 @@ function addBeers(data, user_id) {
 
   return db('beers').insert(newBeer)
     .then(id => {
-      const beer_id = id;
+      const beer_id = id[0];
 
       const newData = {
         user_id: user_id,
