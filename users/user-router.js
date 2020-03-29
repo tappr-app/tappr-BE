@@ -27,7 +27,7 @@ router.get("/:id", verifyUserId, (req, res) => {
   });
 });
 
-router.post('/:id/beers', validateId, (req, res) => {
+router.post('/:id/beers', verifyUserId, (req, res) => {
   const id = req.params.id;
 
   Promise.all([
