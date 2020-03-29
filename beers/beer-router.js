@@ -14,10 +14,7 @@ router.get("/", (req, res) => {
     });
 });
 
-// FIX COMMENTS FINDER
 router.get("/:id", restricted, verifyBeerId, (req, res) => {
-  console.log('User ID: ', req.decodedToken.subject);
-
   const id = req.params.id;
   const user_id = req.decodedToken.subject;
 
@@ -30,7 +27,6 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
     res.status(200).json({ beer: beer, food, comments });
   })
   .catch(error => {
-    console.log(error);
     res.status(500).json({ message: 'The beer information could not be retrieved', error: error });
   });
 });
@@ -38,8 +34,6 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
 router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   const user_id = req.decodedToken.subject;
   const beer_id = req.params.id;
-
-  console.log(beer_id);
 
   Promise.all([
     Beers.addComment(req.body, beer_id, user_id),
@@ -68,7 +62,6 @@ router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
     res.status(200).json({ beer: beer, food, comments });
   })
   .catch(error => {
-    console.log(error);
     res.status(500).json({ message: 'The comment could not be updated', error: error });
   });
 });
@@ -87,7 +80,6 @@ router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) =
     res.status(200).json({ beer: beer, food, comments });
   })
   .catch(error => {
-    console.log(error);
     res.status(500).json({ message: 'The comment could not be deleted', error: error });
   });
 });
