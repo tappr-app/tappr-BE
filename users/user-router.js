@@ -50,25 +50,6 @@ router.put("/:id", verifyUserId, (req, res) => {
     });
 });
 
-// router.get("/:id/tasks", verifyUserId, (req, res) => {
-//   const id = req.params.id;
-
-//   Users.findById(id)
-//     .then(user => {
-//       Users.getTasksByUserId(id)
-//         .then(tasks => {
-//           res.status(200).json({ ...user, tasks });
-//           console.log(user, tasks);
-//         })
-//         .catch(err => {
-//           res.status(500).json(err);
-//         });
-//     })
-//     .catch(err => {
-//       res.status(500).json(err);
-//     });
-// });
-
 // ---------------------- Custom Middleware ---------------------- //
 
 function verifyUserId(req, res, next) {
