@@ -37,7 +37,8 @@ exports.up = function(knex) {
   .createTable('comments', table => {
     table.increments();
     table
-      .text('comment');
+      .text('comment')
+      .notNullable();
     table.integer('beer_id')
       .unsigned()
       .notNullable()
