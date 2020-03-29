@@ -28,13 +28,12 @@ function findBeerFoodPairings(beer_id) {
     .where({ beer_id: beer_id });
 };
 
-function findBeerComments(user_id, beer_id) {
+function findBeerComments(beer_id, user_id) {
   return db('comments')
-    .join('beers', 'beers.id', 'comments.beer_id')
-    .join('users', 'users.id', 'comments.user_id')
-    // .join('users_beers as ub', 'ub.beer_id', 'beers.id')
+    .leftJoin('users', 'users.id', 'comments.user_id')
+    .leftJoin('beers', 'beers.id', 'comments.beer_id')
     .select('comments.comment')
-    .where({ user_id: user_id, beer_id: beer_id });
+    .where({ beer_id: beer_id, user_id: user_id });
 };
 
 function addComment(data, beer_id, user_id) {

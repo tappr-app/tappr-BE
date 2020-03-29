@@ -16,6 +16,8 @@ router.get("/", (req, res) => {
 
 // FIX COMMENTS FINDER
 router.get("/:id", restricted, verifyBeerId, (req, res) => {
+  console.log('User ID: ', req.decodedToken.subject);
+
   const id = req.params.id;
   const user_id = req.decodedToken.subject;
 
