@@ -9,7 +9,7 @@ Rate limit is 3600 req / hour for each IP Address
 Exceeding this limit will prevent the app from loading beer information
 
 ## Base TAPPR API URL
-http://localhost:5000
+https://tappr-app-api.herokuapp.com/
 
 Database used to manage user registration and login access. Creating an account allows a user to save beers to their profile and perform CRUD operations on comments for their saved beers
 
