@@ -40,6 +40,26 @@ URL: /api/auth/register
 ```
 
 #### Response
+##### 201 (Created)
+> Will receive a 201 response with the newly created user and their token if registration is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided",
+  "message": "Username and password fields are required"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "There was an error during user registration, please try again later",
+  "error": "Server error information"
+}
+```
 
 ### Login (Unrestricted Route)
 HTTP Request: POST
@@ -61,6 +81,34 @@ URL: /api/auth/login
 ```
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a welcome message and the user token if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided",
+  "message": "Username and password fields are required"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "There was an error during user login, please try again later",
+  "error": "Server error information"
+}
+```
 
 ### Logout (Unrestricted Route)
 HTTP Request: GET
@@ -68,6 +116,16 @@ HTTP Request: GET
 URL: /api/auth/logout
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a successful logout message if the request is successful
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "Already logged out"
+}
+```
 
 ### Get all users
 HTTP Request: GET
@@ -75,6 +133,33 @@ HTTP Request: GET
 URL: /api/users
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with an array of users in the database if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid Credentials"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The user information could not be retrieved",
+  "error": "Server error information"
+}
+```
 
 ### Get user by ID
 HTTP Request: GET
@@ -82,6 +167,41 @@ HTTP Request: GET
 URL: /api/users/:id
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a user object including their saved beers in an array if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid Credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "User not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The user information could not be retrieved",
+  "error": "Server error information"
+}
+```
 
 ### Update user information
 HTTP Request: PUT
@@ -107,6 +227,42 @@ URL: /api/users/:id
 ```
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with the updated user object if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "User not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The user information could not be retrieved",
+  "message": "The user information could not be updated",
+  "error": "Server error information"
+}
+```
 
 ### Add a beer to the user list
 HTTP Request: POST
@@ -135,6 +291,42 @@ URL: /api/users/:id/beers
 ```
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a user object including their saved beers in an array if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "User not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The user information could not be retrieved",
+  "message": "The beer could not be added to the user profile",
+  "error": "Server error information"
+}
+```
 
 ## Beer Routes
 
@@ -144,6 +336,17 @@ HTTP Request: GET
 URL: /api/beers
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with an array of all beers in the database if the request is successful
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The beer information could not be retrieved",
+  "error": "Server error information"
+}
+```
 
 ### Get beer by ID
 HTTP Request: GET
@@ -151,6 +354,41 @@ HTTP Request: GET
 URL: /api/beers/:id
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a beer object including their food pairings and comments in an array if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "Beer not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The beer information could not be retrieved",
+  "error": "Server error information"
+}
+```
 
 ### Add a beer comment
 HTTP Request: POST
@@ -175,6 +413,42 @@ URL: /api/beers/:id/comments
 ```
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a beer object including their food pairings and comments in an array if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "Beer not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The beer information could not be retrieved",
+  "message": "The comment could not be created",
+  "error": "Server error information"
+}
+```
 
 ### Update a comment
 HTTP Request: PUT
@@ -200,6 +474,42 @@ URL: /api/beers/:id/comments/:commentid
 ```
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a beer object including their food pairings and comments in an array if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "Beer not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The beer information could not be retrieved",
+  "message": "The comment could not be updated",
+  "error": "Server error information"
+}
+```
 
 ### Delete a comment
 HTTP Request: DELETE
@@ -207,3 +517,39 @@ HTTP Request: DELETE
 URL: /api/beers/:id/comments/:commentid
 
 #### Response
+##### 200 (OK)
+> Will receive a 200 response with a beer object including their food pairings and comments in an array if the request is successful
+
+##### 400 (Bad Request)
+> Will receive a 400 response if required information is missing from the body
+```javascript
+{
+  "message": "No credentials provided"
+}
+```
+
+##### 401 (Unauthorized)
+> Will receive a 401 response if credentials are invalid
+```javascript
+{
+  "message": "Invalid credentials"
+}
+```
+
+##### 404 (Not Found)
+> Will receive a 404 response if parameter ID is invalid
+```javascript
+{
+  "message": "Beer not found"
+}
+```
+
+##### 500 (Internal Server Error)
+> Will receive a 500 response if there is a problem with the server
+```javascript
+{
+  "message": "The beer information could not be retrieved",
+  "message": "The comment could not be deleted",
+  "error": "Server error information"
+}
+```

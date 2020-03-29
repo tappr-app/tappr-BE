@@ -28,14 +28,18 @@ router.get("/:id", verifyUserId, (req, res) => {
 });
 
 router.post('/:id/beers', validateId, (req, res) => {
-  Users.addBeers(req.body, req.params.id)
-    .then(user => {
-      res.status(200).json(user);
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ errorMessage: "The beer could not be added to the user profile", error: error });
-    });
+  const id = req.params.id;
+
+  Promise.all([
+    Users.addBeers(req.body, id),
+    Users.findUserBeers(id)
+  ])
+  .then(([user, beers]) => {
+    res.status(200).json({ user: user, beers });
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'The beer could not be added to the user profile', error: error });
+  });
 });
 
 router.put("/:id", verifyUserId, (req, res) => {
@@ -61,7 +65,7 @@ function verifyUserId(req, res, next) {
         req.item = item;
         next();
       } else {
-        res.status(404).json({ message: "User Not Found." });
+        res.status(404).json({ message: "User not found" });
       }
     })
     .catch(error => {

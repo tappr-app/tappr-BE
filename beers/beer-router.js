@@ -31,7 +31,7 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
   });
 });
 
-router.post('/:id/comments', (req, res) => {
+router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   const user_id = req.decodedToken.subject;
 
   Promise.all([
@@ -47,7 +47,7 @@ router.post('/:id/comments', (req, res) => {
   });
 });
 
-router.put('/:id/comments/:commentid', (req, res) => {
+router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const comment_id = req.params.commentid;
   const beer_id = req.params.id;
   const user_id = req.decodedToken.subject;
@@ -65,7 +65,7 @@ router.put('/:id/comments/:commentid', (req, res) => {
   });
 });
 
-router.delete('/:id/comments/:commentid', (req, res) => {
+router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const comment_id = req.params.commentid;
   const beer_id = req.params.id;
   const user_id = req.decodedToken.subject;
@@ -79,7 +79,7 @@ router.delete('/:id/comments/:commentid', (req, res) => {
     res.status(200).json({ beer: beer, food, comments });
   })
   .catch(error => {
-    res.status(500).json({ message: 'The comment could not be created', error: error });
+    res.status(500).json({ message: 'The comment could not be deleted', error: error });
   });
 });
 
