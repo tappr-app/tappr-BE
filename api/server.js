@@ -17,7 +17,7 @@ server.use("/api/auth", AuthRouter);
 server.use("/api/users", restricted, UserRouter);
 server.use("/api/beers", BeerRouter);
 
-server.get("/", (req, res) => {
+server.get("/api", (req, res) => {
   res.status(200).json({ time: "Beer o' Clock" });
 });
 

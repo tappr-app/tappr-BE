@@ -1,2 +1,2 @@
 run:
-  web: npx knex migrate:latest --env=production
+  web: npx knex migrate:latest
