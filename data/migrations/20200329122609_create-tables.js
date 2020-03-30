@@ -31,7 +31,7 @@ exports.up = function(knex) {
   .createTable('food_pairings', table => {
     table.increments();
     table
-      .string('name')
+      .string('food_name')
       .notNullable();
   })
   .createTable('comments', table => {

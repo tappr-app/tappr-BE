@@ -31,6 +31,18 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
   });
 });
 
+router.post('/', restricted, validateBeer, (req, res) => {
+  const user_id = req.decodedToken.subject;
+
+  Beers.add(req.body, user_id)
+    .then((beer) => {
+      res.status(201).json(beer);
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'The beer could not be created', error: error });
+    });
+});
+
 router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   const user_id = req.decodedToken.subject;
   const beer_id = req.params.id;
@@ -45,6 +57,23 @@ router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   })
   .catch(error => {
     res.status(500).json({ message: 'The comment could not be created', error: error });
+  });
+});
+
+router.put('/:id', restricted, verifyBeerId, (req, res) => {
+  const id = req.params.id;
+  const user_id = req.decodedToken.subject;
+
+  Promise.all([
+    Beers.update(req.body, id),
+    Beers.findBeerFoodPairings(id),
+    Beers.findBeerComments(id, user_id)
+  ])
+  .then(([beer, food, comments]) => {
+    res.status(200).json({ beer: beer, food, comments });
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'The beer information could not be updated', error: error });
   });
 });
 
@@ -65,6 +94,18 @@ router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
     res.status(500).json({ message: 'The comment could not be updated', error: error });
   });
 });
+
+router.delete('/:id', restricted, verifyBeerId, (req, res) => {
+  const id = req.params.id;
+
+  Beers.remove(id)
+    .then(beers => {
+      res.status(200).json(beers);
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'The beer could not be deleted', error: error });
+    });
+})
 
 router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.commentid;
@@ -101,6 +142,14 @@ function verifyBeerId(req, res, next) {
     .catch(error => {
       res.status(500).json({ message: 'The beer information could not be retrieved', error: error });
     });
-}
+};
+
+function validateBeer(req, res, next) {
+  if (!req.body.name) {
+    res.status(400).json({ message: "Beer must have a name" });
+  } else {
+    next();
+  };
+};
 
 module.exports = router;
