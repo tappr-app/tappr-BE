@@ -32,6 +32,7 @@ router.post("/login", validateUser, (req, res) => {
 
         res.status(200).json({
           message: `Welcome ${user.username}!`,
+          user,
           token
         });
       } else {
