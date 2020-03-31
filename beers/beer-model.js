@@ -62,9 +62,9 @@ async function add(beer, user_id) {
         user_id: user_id
       };
 
-      await db('comments').insert(comments)
+      return db('comments').insert(comments)
         .then(ids => {
-          await db('food_pairings').insert(foodPairings)
+          return db('food_pairings').insert(foodPairings)
             .then(ids => {
               const food_id = ids[0];
 
@@ -98,14 +98,14 @@ function remove(id) {
   });
 };
 
-function addComment(data, beer_id, user_id) {
+async function addComment(data, beer_id, user_id) {
   const newComment = {
     comment: data.comment,
     beer_id: beer_id,
     user_id: user_id
   };
 
-  return db('comments').insert(newComment)
+  await db('comments').insert(newComment)
     .then(id => {
       return findById(beer_id);
     });

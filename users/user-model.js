@@ -57,7 +57,7 @@ async function addBeers(data, user_id) {
         beer_id: beer_id
       };
 
-      await db('users_beers').insert(newData)
+      return db('users_beers').insert(newData)
         .then(id => {
           return findUserBeers(user_id);
         });
