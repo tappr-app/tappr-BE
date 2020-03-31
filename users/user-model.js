@@ -39,7 +39,7 @@ async function add(user) {
   return findById(id);
 };
 
-function addBeers(data, user_id) {
+async function addBeers(data, user_id) {
   const newBeer = {
     name: data.name,
     tagline: data.tagline,
@@ -48,7 +48,7 @@ function addBeers(data, user_id) {
     abv: data.abv
   };
 
-  return db('beers').insert(newBeer)
+  await db('beers').insert(newBeer)
     .then(id => {
       const beer_id = id[0];
 
@@ -57,7 +57,7 @@ function addBeers(data, user_id) {
         beer_id: beer_id
       };
 
-      return db('users_beers').insert(newData)
+      await db('users_beers').insert(newData)
         .then(id => {
           return findUserBeers(user_id);
         });

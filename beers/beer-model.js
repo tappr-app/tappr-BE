@@ -39,7 +39,7 @@ function findBeerComments(beer_id, user_id) {
     .where({ beer_id: beer_id, user_id: user_id });
 };
 
-function add(beer, user_id) {
+async function add(beer, user_id) {
   const newBeer = {
     name: beer.name,
     tagline: beer.tagline,
@@ -52,7 +52,7 @@ function add(beer, user_id) {
     food_name: beer.food_name
   };
 
-  return db("beers").insert(newBeer)
+  await db("beers").insert(newBeer)
     .then(ids => {
       const beer_id = ids[0];
 
@@ -62,9 +62,9 @@ function add(beer, user_id) {
         user_id: user_id
       };
 
-      return db('comments').insert(comments)
+      await db('comments').insert(comments)
         .then(ids => {
-          return db('food_pairings').insert(foodPairings)
+          await db('food_pairings').insert(foodPairings)
             .then(ids => {
               const food_id = ids[0];
 
