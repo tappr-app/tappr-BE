@@ -48,39 +48,37 @@ async function add(beer, user_id) {
     abv: beer.abv
   };
 
-  // const foodPairings = {
-  //   food_name: beer.food_name
-  // };
+  const foodPairings = {
+    food_name: beer.food_name
+  };
 
-  await db("beers").insert(newBeer)
+  await db("beers").insert(newBeer, "id")
     .then(ids => {
-      return findById(ids[0]);
+      const beer_id = ids[0];
 
-      // const beer_id = ids[0];
+      const comments = {
+        comment: beer.comment,
+        beer_id: beer_id,
+        user_id: user_id
+      };
 
-      // const comments = {
-      //   comment: beer.comment,
-      //   beer_id: beer_id,
-      //   user_id: user_id
-      // };
+      return db('comments').insert(comments)
+        .then(ids => {
+          return db('food_pairings').insert(foodPairings)
+            .then(ids => {
+              const food_id = ids[0];
 
-      // return db('comments').insert(comments)
-      //   .then(ids => {
-      //     return db('food_pairings').insert(foodPairings)
-      //       .then(ids => {
-      //         const food_id = ids[0];
+              const newData = {
+                food_id: food_id,
+                beer_id: beer_id
+              };
 
-      //         const newData = {
-      //           food_id: food_id,
-      //           beer_id: beer_id
-      //         };
-
-      //         return db('beers_foods').insert(newData)
-      //           .then(ids => {
-      //             return findById(beer_id);
-      //           });
-      //       });
-      //   });
+              return db('beers_foods').insert(newData)
+                .then(ids => {
+                  return findById(beer_id);
+                });
+            });
+        });
     });
 };
 
@@ -107,10 +105,9 @@ async function addComment(data, beer_id, user_id) {
     user_id: user_id
   };
 
-  await db('comments').insert(newComment)
-    .then(id => {
-      return findById(beer_id);
-    });
+  await db('comments').insert(newComment, "id");
+
+  return findById(beer_id);
 };
 
 function updateComment(data, comment_id, user_id, beer_id) {

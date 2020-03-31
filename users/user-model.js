@@ -48,7 +48,7 @@ async function addBeers(data, user_id) {
     abv: data.abv
   };
 
-  await db('beers').insert(newBeer)
+  await db('beers').insert(newBeer, "id")
     .then(id => {
       const beer_id = id[0];
 
