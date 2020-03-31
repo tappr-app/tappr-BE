@@ -64,7 +64,7 @@ async function add(beer, user_id) {
 
       return db('comments').insert(comments)
         .then(ids => {
-          return db('food_pairings').insert(foodPairings)
+          return db('food_pairings').insert(foodPairings, "id")
             .then(ids => {
               const food_id = ids[0];
 

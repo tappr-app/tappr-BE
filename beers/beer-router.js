@@ -32,9 +32,9 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
 });
 
 router.post('/', restricted, validateBeer, (req, res) => {
-  // const user_id = req.decodedToken.subject;
+  const user_id = req.decodedToken.subject;
 
-  Beers.add(req.body)
+  Beers.add(req.body, user_id)
     .then((beer) => {
       res.status(201).json(beer);
     })
