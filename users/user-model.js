@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users").select("id", "username").orderBy("id");
+  return db("users").select("id", "username", "age", "bio", "user_image").orderBy("id");
 };
 
 function findBy(filter) {
@@ -22,7 +22,7 @@ function findById(id) {
   return db("users")
     .where({ id })
     .first()
-    .select("id", "username", "bio");
+    .select("id", "username", "age", "bio", "user_image");
 };
 
 function findUserBeers(user_id) {
