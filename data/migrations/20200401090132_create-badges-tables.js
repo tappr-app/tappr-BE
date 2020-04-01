@@ -3,7 +3,6 @@ exports.up = function(knex) {
   return knex.schema
     .table('users', table => {
       table.integer('age')
-        .notNullable()
         .unsigned();
       table.string('user_image');
     })
