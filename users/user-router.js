@@ -29,6 +29,7 @@ router.get("/:id", verifyUserId, (req, res) => {
   });
 });
 
+// TEST IN PROD
 router.post('/beers', (req, res) => {
   const id = req.decodedToken.subject;
 
@@ -37,9 +38,11 @@ router.post('/beers', (req, res) => {
     Users.findById(id)
   ])
   .then(([beers, user]) => {
+    console.log(beers);
     res.status(200).json({ user: user, beers });
   })
   .catch(error => {
+    console.log(error);
     res.status(500).json({ message: 'The beer could not be added to the user profile', error: error });
   });
 });

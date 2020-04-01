@@ -39,16 +39,8 @@ async function add(user) {
   return findById(id);
 };
 
-async function addBeers(data, user_id) {
-  const newBeer = {
-    name: data.name,
-    tagline: data.tagline,
-    description: data.description,
-    image_url: data.image_url,
-    abv: data.abv
-  };
-
-  await db('beers').insert(newBeer, "id")
+function addBeers(data, user_id) {
+  return db('beers').insert(data, "id")
     .then(id => {
       const beer_id = id[0];
 

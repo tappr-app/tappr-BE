@@ -31,10 +31,9 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
   });
 });
 
+// TEST IN PROD
 router.post('/', restricted, validateBeer, (req, res) => {
-  const user_id = req.decodedToken.subject;
-
-  Beers.add(req.body, user_id)
+  Beers.add(req.body)
     .then((beer) => {
       res.status(201).json(beer);
     })
@@ -43,6 +42,7 @@ router.post('/', restricted, validateBeer, (req, res) => {
     });
 });
 
+// TEST IN PROD
 router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   const user_id = req.decodedToken.subject;
   const beer_id = req.params.id;
@@ -60,6 +60,25 @@ router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   });
 });
 
+// TEST IN PROD
+router.post('/:id/foods', restricted, verifyBeerId, (req, res) => {
+  const user_id = req.decodedToken.subject;
+  const beer_id = req.params.id;
+
+  Promise.all([
+    Beers.addFoodPairing(req.body, beer_id),
+    Beers.findBeerFoodPairings(beer_id),
+    Beers.findBeerComments(beer_id, user_id)
+  ])
+  .then(([beer, food, comments]) => {
+    res.status(200).json({ beer: beer, food, comments });
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'The food pairing could not be created', error: error });
+  });
+});
+
+// TEST IN PROD
 router.put('/:id', restricted, verifyBeerId, (req, res) => {
   const id = req.params.id;
   const user_id = req.decodedToken.subject;
@@ -77,6 +96,7 @@ router.put('/:id', restricted, verifyBeerId, (req, res) => {
   });
 });
 
+// TEST IN PROD
 router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.commentid;
   const beer_id = req.params.id;
@@ -95,6 +115,26 @@ router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   });
 });
 
+// TEST IN PROD
+router.put('/:id/foods/:foodid', restricted, verifyBeerId, (req, res) => {
+  const id = req.params.foodid;
+  const beer_id = req.params.id;
+  const user_id = req.decodedToken.subject;
+
+  Promise.all([
+    Beers.updateFoodPairing(req.body, id, beer_id),
+    Beers.findBeerFoodPairings(beer_id),
+    Beers.findBeerComments(beer_id, user_id)
+  ])
+  .then(([beer, food, comments]) => {
+    res.status(200).json({ beer: beer, food, comments });
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'The food pairing could not be updated', error: error });
+  });
+});
+
+// TEST IN PROD
 router.delete('/:id', restricted, verifyBeerId, (req, res) => {
   const id = req.params.id;
 
@@ -107,6 +147,7 @@ router.delete('/:id', restricted, verifyBeerId, (req, res) => {
     });
 })
 
+// TEST IN PROD
 router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.commentid;
   const beer_id = req.params.id;
@@ -122,6 +163,25 @@ router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) =
   })
   .catch(error => {
     res.status(500).json({ message: 'The comment could not be deleted', error: error });
+  });
+});
+
+// TEST IN PROD
+router.delete('/:id/foods/:foodid', restricted, verifyBeerId, (req, res) => {
+  const id = req.params.foodid;
+  const beer_id = req.params.id;
+  const user_id = req.decodedToken.subject;
+
+  Promise.all([
+    Beers.removeFood(id, beer_id),
+    Beers.findBeerFoodPairings(beer_id),
+    Beers.findBeerComments(beer_id, user_id)
+  ])
+  .then(([beer, food, comments]) => {
+    res.status(200).json({ beer: beer, food, comments });
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'The food pairing could not be deleted', error: error });
   });
 });
 
