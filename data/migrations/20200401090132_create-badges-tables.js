@@ -1,16 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema
-    .dropTable('users')
-    .createTable('users', table => {
-      table.increments();
-      table.string('username', 128)
-        .notNullable()
-        .unique();
-      table.string('password', 128)
-        .notNullable();
-      table.text('bio')
-        .defaultTo('Craft beer enthusiast');
+    .table('users', table => {
       table.integer('age')
         .notNullable()
         .unsigned();
