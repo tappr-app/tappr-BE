@@ -5,13 +5,26 @@ const restricted = require("../middleware/restricted-middleware.js");
 const Beers = require("./beer-model.js");
 
 router.get("/", (req, res) => {
-  Beers.find()
-    .then(beers => {
-      res.status(200).json(beers);
-    })
-    .catch(error => {
-      res.status(500).json({ message: 'The beer information could not be retrieved', error: error });
-    });
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+
+    Beers.findBy({ regex })
+      .then(beer => {
+        console.log(beer);
+        res.status(200).json(beer)
+      })
+      .catch(error => {
+        res.status(500).json({ message: "The beer information could not be retrieved", error: error });
+      });
+  } else {
+    Beers.find()
+      .then(beers => {
+        res.status(200).json(beers);
+      })
+      .catch(error => {
+        res.status(500).json({ message: 'The beer information could not be retrieved', error: error });
+      });
+  }
 });
 
 router.get("/:id", restricted, verifyBeerId, (req, res) => {
@@ -205,6 +218,10 @@ function validateBeer(req, res, next) {
   } else {
     next();
   };
+};
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
 module.exports = router;

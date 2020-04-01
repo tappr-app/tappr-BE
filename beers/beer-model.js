@@ -2,6 +2,7 @@ const db = require("../data/dbConfig.js");
 
 module.exports = {
   find,
+  findBy,
   findById,
   findBeerFoodPairings,
   findBeerComments,
@@ -18,6 +19,10 @@ module.exports = {
 
 function find() {
   return db("beers");
+};
+
+function findBy(filter) {
+  return db("beers").where(filter);
 };
 
 function findById(id) {
