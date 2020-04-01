@@ -49,29 +49,12 @@ router.put("/:id", verifyUserId, (req, res) => {
 
   Users.update(req.body, id)
     .then(user => {
-      const token = generateToken(user);
-
-      res.status(200).json({ user: user, token });
+      res.status(200).json(user);
     })
     .catch(error => {
       res.status(500).json({ message: 'The user information could not be updated', error: error });
     });
 });
-
-// ---------------------- Generate Token ---------------------- //
-
-function generateToken(user) {
-  const payload = {
-    subject: user.id,
-    username: user.username
-  };
-
-  const options = {
-    expiresIn: "7d",
-  };
-
-  return jwt.sign(payload, jwtSecret, options);
-};
 
 // ---------------------- Custom Middleware ---------------------- //
 
