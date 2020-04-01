@@ -31,7 +31,6 @@ router.get("/:id", restricted, verifyBeerId, (req, res) => {
   });
 });
 
-// TEST IN PROD
 router.post('/', restricted, validateBeer, (req, res) => {
   Beers.add(req.body)
     .then((beer) => {
@@ -42,7 +41,6 @@ router.post('/', restricted, validateBeer, (req, res) => {
     });
 });
 
-// TEST IN PROD
 router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   const user_id = req.decodedToken.subject;
   const beer_id = req.params.id;
@@ -60,7 +58,6 @@ router.post('/:id/comments', restricted, verifyBeerId, (req, res) => {
   });
 });
 
-// TEST IN PROD
 router.post('/:id/foods', restricted, verifyBeerId, (req, res) => {
   const user_id = req.decodedToken.subject;
   const beer_id = req.params.id;
@@ -78,7 +75,6 @@ router.post('/:id/foods', restricted, verifyBeerId, (req, res) => {
   });
 });
 
-// TEST IN PROD
 router.put('/:id', restricted, verifyBeerId, (req, res) => {
   const id = req.params.id;
   const user_id = req.decodedToken.subject;
@@ -96,7 +92,7 @@ router.put('/:id', restricted, verifyBeerId, (req, res) => {
   });
 });
 
-// TEST IN PROD
+// TEST IN PROD - NOT UPDATING?
 router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.commentid;
   const beer_id = req.params.id;
@@ -115,7 +111,7 @@ router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   });
 });
 
-// TEST IN PROD
+// TEST IN PROD - NOT UPDATING?
 router.put('/:id/foods/:foodid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.foodid;
   const beer_id = req.params.id;

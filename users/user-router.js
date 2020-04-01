@@ -29,7 +29,6 @@ router.get("/:id", verifyUserId, (req, res) => {
   });
 });
 
-// TEST IN PROD
 router.post('/beers', (req, res) => {
   const id = req.decodedToken.subject;
 

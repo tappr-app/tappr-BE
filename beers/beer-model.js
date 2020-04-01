@@ -30,7 +30,7 @@ function findBeerFoodPairings(beer_id) {
   return db('beers')
     .join('beers_foods as bf', 'bf.beer_id', 'beers.id')
     .join('food_pairings as fp', 'fp.id', 'bf.food_id')
-    .select('fp.food_name')
+    .select('fp.food_name', 'fp.id')
     .where({ beer_id: beer_id });
 };
 
@@ -38,7 +38,7 @@ function findBeerComments(beer_id, user_id) {
   return db('comments')
     .leftJoin('users', 'users.id', 'comments.user_id')
     .leftJoin('beers', 'beers.id', 'comments.beer_id')
-    .select('comments.comment')
+    .select('comments.comment', 'comments.id')
     .where({ beer_id: beer_id, user_id: user_id });
 };
 
