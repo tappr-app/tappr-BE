@@ -105,6 +105,7 @@ router.put('/:id', restricted, verifyBeerId, (req, res) => {
   });
 });
 
+// Need to chain a GET request for the beer by ID to get updated information
 router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.commentid;
   const beer_id = req.params.id;
@@ -123,6 +124,7 @@ router.put('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   });
 });
 
+// Need to chain a GET request for the beer by ID to get updated information
 router.put('/:id/foods/:foodid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.foodid;
   const beer_id = req.params.id;
@@ -153,6 +155,7 @@ router.delete('/:id', restricted, verifyBeerId, (req, res) => {
     });
 })
 
+// Need to chain a GET request for the beer by ID to get updated information
 router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.commentid;
   const beer_id = req.params.id;
@@ -171,6 +174,7 @@ router.delete('/:id/comments/:commentid', restricted, verifyBeerId, (req, res) =
   });
 });
 
+// Need to chain a GET request for the beer by ID to get updated information
 router.delete('/:id/foods/:foodid', restricted, verifyBeerId, (req, res) => {
   const id = req.params.foodid;
   const beer_id = req.params.id;

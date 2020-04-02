@@ -955,6 +955,7 @@ HTTP Request: PUT
 
 URL: /api/beers/:id/comments/:commentid
 
+*** Need to chain a GET request for the beer ID after this for updated information to come through
 
 ##### Body
 | Name       | Type    | Required  | Description                                                                  |
@@ -1054,6 +1055,7 @@ HTTP Request: PUT
 
 URL: /api/beers/:id/foods/:foodid
 
+*** Need to chain a GET request for the beer ID after this for updated information to come through
 
 ##### Body
 | Name       | Type    | Required  | Description                  |
@@ -1231,6 +1233,8 @@ HTTP Request: DELETE
 
 URL: /api/beers/:id/comments/:commentid
 
+*** Need to chain a GET request for the beer ID after this for updated information to come through
+
 #### Response
 ##### 200 (OK)
 > Will receive a 200 response with a beer object including their food pairings and comments in an array if the request is successful
@@ -1306,6 +1310,8 @@ URL: /api/beers/:id/comments/:commentid
 HTTP Request: DELETE
 
 URL: /api/beers/:id/foods/:foodid
+
+*** Need to chain a GET request for the beer ID after this for updated information to come through
 
 #### Response
 ##### 200 (OK)

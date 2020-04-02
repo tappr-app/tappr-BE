@@ -90,7 +90,7 @@ function addComment(data, beer_id, user_id) {
     });
 };
 
-async function updateComment(data, comment_id, user_id, beer_id) {
+function updateComment(data, comment_id, user_id, beer_id) {
   const updatedComment = {
     comment: data.comment,
     user_id: user_id,
@@ -99,17 +99,17 @@ async function updateComment(data, comment_id, user_id, beer_id) {
 
   const id = comment_id;
 
-  await db('comments').where({ id }).update(updatedComment)
+  return db('comments').where({ id }).update(updatedComment)
     .then(count => {
       console.log(`Updated ${count} comment`);
       return findById(beer_id);
     });
 };
 
-async function removeComment(comment_id, beer_id) {
+function removeComment(comment_id, beer_id) {
   const id = comment_id;
 
-  await db('comments').where({ id }).del()
+  return db('comments').where({ id }).del()
   .then(count => {
     console.log(`Deleted ${count} comment`);
     return findById(beer_id);
@@ -137,24 +137,24 @@ function addFoodPairing(data, beer_id) {
     });
 };
 
-async function updateFoodPairing(data, food_id, beer_id) {
+function updateFoodPairing(data, food_id, beer_id) {
   const updatedFood = {
     food_name: data.food_name
   };
 
   const id = food_id;
 
-  await db('food_pairings').where({ id }).update(updatedFood)
+  return db('food_pairings').where({ id }).update(updatedFood)
     .then(count => {
       console.log(`Updated ${count} food`);
       return findById(beer_id);
     });
 };
 
-async function removeFood(food_id, beer_id) {
+function removeFood(food_id, beer_id) {
   const id = food_id;
 
-  await db('food_pairings').where({ id }).del()
+  return db('food_pairings').where({ id }).del()
   .then(count => {
     console.log(`Deleted ${count} food`);
     return findById(beer_id);
