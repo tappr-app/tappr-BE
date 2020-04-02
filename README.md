@@ -461,6 +461,11 @@ HTTP Request: GET
 
 URL: /api/beers
 
+Use for searching the database - must provide a query labeled as `name`. Set up to match names regardless of case as long as the input exists in our database.
+
+##### Example URL
+/api/beers?name=citradelic
+
 #### Response
 ##### 200 (OK)
 > Will receive a 200 response with an array of all beers in the database if the request is successful
