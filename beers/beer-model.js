@@ -43,7 +43,7 @@ function findBeerComments(beer_id, user_id) {
   return db('comments')
     .leftJoin('users', 'users.id', 'comments.user_id')
     .leftJoin('beers', 'beers.id', 'comments.beer_id')
-    .select('comments.comment', 'comments.id')
+    .select('comments.comment', 'comments.id', 'beers.id as beer_id', 'users.id as user_id')
     .where({ beer_id: beer_id, user_id: user_id });
 };
 

@@ -29,7 +29,7 @@ function findUserBeers(user_id) {
   return db('users')
     .join('users_beers as ub', 'ub.user_id', 'users.id')
     .join('beers', 'beers.id', 'ub.beer_id')
-    .select('beers.name', 'beers.tagline', 'beers.abv', 'beers.id')
+    .select('beers.name', 'beers.tagline', 'beers.abv', 'beers.id', 'beers.image_url', 'beers.description')
     .where({ user_id: user_id });
 }
 
