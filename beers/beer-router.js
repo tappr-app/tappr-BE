@@ -5,7 +5,7 @@ const restricted = require("../middleware/restricted-middleware.js");
 const Beers = require("./beer-model.js");
 
 router.get("/", (req, res) => {
-  if (req.query) {
+  if (req.query.name) {
     Beers.find()
       .then(beers => {
         const results = beers.filter((beer) => {
