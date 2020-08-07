@@ -1,5 +1,6 @@
-# tappr
+# TAPPR
 > Welcome to TAPPR where every hour is happy hour
+Backend to support the TAPPR app where users can search, favorite, and create a try list of craft beers
 
 ## Base Beer List API URL
 https://api.punkapi.com/v2/
@@ -19,6 +20,24 @@ Database used to manage user registration and login access. Creating an account 
 ```
 
 Unrestricted routes can be access without a user token. All other routes require a valid user login for access
+
+Database is being built out to replace the need for the Punk API endpoint. Database and backend built using Node.js, Express, Postgres, and Knex.
+
+## Status
+Backend is ready for use - no further work is currently being done on the database design or API endpoints
+
+## Known Issues
+All known issues, or currently in progress features, can be found under the issues tab. Any recommendations, or found bugs, can be added as an issue on the repository.
+
+## Work on this Repo
+To test API endpoints, and database changes, an API GUI is recommended. Our team uses Postman. Changes to the repo can be made in a seperate branch and tested in the API GUI. Database changes can be done by migrating with the Postgres database.
+
+## Feedback
+Questions, comments, or concerns can be submitted as an issue on this repository. As an open-source project, all developers are encouraged to work on active issues, or implement new features, by pushing to a separate feature branch. All commits to master must be approved by the TAPPR creators.
+
+---
+
+# API REFRENCES
 
 ## User Routes
 
